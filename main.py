@@ -1,4 +1,4 @@
-import pygame, sys, logging, os, ctypes
+import pygame, sys, logging, os, ctypes, Player
 
 # init
 sys.path.append("./src/py")
@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 log = logging
-logFilePath = './debug/debug-log.log'
+logFilePath = './thisgamerequiresdlc/debug/debug-log.log'
 
 # buttons
 MB_OK = 0x0
@@ -27,7 +27,7 @@ def funcMsgBox(title, text, icon ,style):
 
 def init_win():
     print("재설정 하는중..")
-    #pygame.display.set_icon('./src/img/icon.png')
+    pygame.display.set_icon('./src/img/icon.png')
     pygame.display.set_caption('no gamename right now lol')
 
 def init_logging():
@@ -52,15 +52,18 @@ def init_logging():
                 print("This isn't important error, executing..")
 
 try:
-    init_win()
-    init_logging()
+    try:
+        init_win()
+        init_logging()
+    except Exception as ex:
+        funcMsgBox('재설정 오류', '게임을 재설정하는중 오류가 발생하였습니다.', ICON_STOP, 0)
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill("purple")
+        screen.fill("gray")
 
         pygame.display.flip()
         clock.tick(60)
